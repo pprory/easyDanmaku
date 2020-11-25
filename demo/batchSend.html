@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>batchSend demo</title>
+    <style>
+        #container{
+            width:600px;
+            height:400px;
+            display: block;
+        }
+        .danmaku-wrapper{
+            background: linear-gradient(to right, #eee,transparent);
+            border-radius: 8px;
+            
+        }
+    </style>
+</head>
+<body>
+    <danmaku id="container">
+
+    </danmaku>
+</body>
+<script type="module">
+/*
+    批量插入demo    | batchSend demo
+*/
+import EazyDanmaku from './eazyDanmaku.js';
+const instantiationDanmaku = new EazyDanmaku({
+    el:'#container',
+    colourful:true,
+    line:10,
+    wrapperStyle:'danmaku-wrapper',
+    speed:5,
+    hover:true,
+    onComplete:()=> {
+        console.log('end');
+    }
+})
+let set = new Set();
+setInterval( () => {
+    for(let i = 0; i<10; i++) {
+        set.add(Math.round(Math.random()*1000))
+    }
+                                  //弹幕内容 是否包含头像  弹幕样式 
+    instantiationDanmaku.batchSend(Array.from(set),false,'danmaku-wrapper');
+    set.clear();
+},1000)
+
+</script>
+</html>
