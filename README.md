@@ -45,7 +45,7 @@ $  npm install easydanmaku --save
     <div id='container'></div>
 </template>
 <script>
-    import EazyDanmaku from 'eazyDanmaku';
+    import EazyDanmaku from 'easydanmaku';
     export default {
         //~~~
         mounted() {
