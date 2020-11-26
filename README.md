@@ -31,7 +31,7 @@ $  npm install easyDanmaku --save
 |   onComplete      |      void                 |     void          | 循环播放一轮或者批量弹幕插入完毕触发 |
 |   onHover         |     所hover的dom对象  |      void         | 鼠标hover在弹幕上时触发  |
 ## 使用
-**ps** : *可查阅包文件夹中的demo实例*
+**ps** : *更多细节可查阅包文件夹中的demo*
 ### 在Vue中使用(React,Angular中使用方式类似)
 - [循环播放](#loop)
 - [发送单条弹幕](#sendasingle)

@@ -10,6 +10,7 @@
  */
 class eazyDanmaku {
     constructor(params) {
+        /* ------ 初始化属性 start--------   */
         this.container = this.checkParams(params);                       //弹幕容器 | danmaku Parent container
         this.wrapperStyle = params.wrapperStyle || null;                 //弹幕样式 | danmaku style
         this.line = params.line || 10;                                   //弹幕总行数 | danmaku lines(default ten line)
@@ -18,11 +19,12 @@ class eazyDanmaku {
         this.colourful = params.colourful || false;                      //彩色弹幕 | colourful danmaku(default false) 
         this.loop = params.loop || false;                                //是否循环播放 | loop play
         this.hover = params.hover || false;                              //鼠标悬停是否暂停 | hover pause
+        this.coefficient = params.coefficient|| 1.38;                    //同时刻弹幕系数  | danmaku Density factor
+        /* ------ 初始化属性 end --------   */
         this.originIndex = 0;                                            //弹幕列表起始下标 | danmaku Density factor
         this.originList = null;                                          //备用列表  | Alternate list
         this.offsetValue = this.container.offsetHeight / this.line;      //弹幕排列偏移量 | danmaku offsetValue
         this.vipIndex = 0;                                               //vip弹幕下标 | vip danmaku subscript
-        this.coefficient = params.coefficient|| 1.38;                    //同时刻弹幕系数  | danmaku Density factor
         this.overflowArr=[];                                             //溢出队列  | danmaku overflow Array
         this.clearIng = false;                                           //是否正在处理溢出弹幕 | whether  handle overflow danmaku
         this.init();
@@ -55,7 +57,7 @@ class eazyDanmaku {
         }
     }
     /**
-     * 类型校验
+     * @description 初始化参数类型校验
      * @param {object} 初始化参数
      * @returns {HTMLElement} 弹幕容器 
      */
@@ -82,10 +84,10 @@ class eazyDanmaku {
         return window.getComputedStyle(el,null)[attr];
     }
     /**
+     * @description 单条弹幕发送 批量弹幕使用batchSend方法(对外)
      * @param {string} content 弹幕内容
      * @param {string} normalClass 弹幕默认样式
      * @param {function} callback 弹幕播放结束后的回调函数 @returns {object} 本条弹幕的一些基本信息
-     * @description 单条弹幕发送 批量弹幕使用batchSend方法(对外)
      */
     send(content, normalClass=null,callback=null) {
         if(content.length<1)return
