@@ -1,12 +1,12 @@
 /*!
- * eazyDanmuku v1.0.2
+ * eazyDanmuku v1.0.4
  * (c) 2020 Peng Pan
  * @license MIT
  */
 /**
  *  @class eazyDanmuku
  *  @param { object } params
- *  @version 1.0.0
+ *  @version 1.0.4
  */
 class eazyDanmaku {
     constructor(params) {

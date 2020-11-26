@@ -1,6 +1,6 @@
 {
   "name": "eazydanmaku",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Danmaku plugin for the web",
   "main": "/src/index.js",
   "repository": {

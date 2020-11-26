@@ -1,7 +1,7 @@
 # eazyDanmaku <a href="https://www.npmjs.com/package/eazyDanmaku"><img src="https://img.shields.io/npm/l/vue.svg?sanitize=true" alt="License"></a>
 
 
-A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScirpt``)
+A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScript``)
 
 ## 安装
 
@@ -9,7 +9,7 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScirp
 $  npm install easydanmaku --save
 ```
 ### demo[预览地址](http://panchuanpeng.cn/eazyDanmaku/loopPlay.html)
-<br/>
+
 ## 初始设置
 ### 弹幕初始化属性
 
