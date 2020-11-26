@@ -25,7 +25,7 @@
  */
 class eazyDanmaku {
     constructor(params) {
-        this.container = document.querySelector(params.el);              //弹幕容器 | danmaku Parent container
+        this.container = this.checkParams(params);                       //弹幕容器 | danmaku Parent container
         this.wrapperStyle = params.wrapperStyle || null;                 //弹幕样式 | danmaku style
         this.line = params.line || 10;                                   //弹幕总行数 | danmaku lines(default ten line)
         this.speed = params.speed || 5;                                  //单条弹幕速度 | danmaku speed(default five 5)
@@ -69,7 +69,25 @@ class eazyDanmaku {
             });
         }
     }
-    
+    /**
+     * 类型校验
+     * @param {object} 初始化参数
+     * @returns {HTMLElement} 弹幕容器 
+     */
+    checkParams(params){
+        if(!document.querySelector(params.el))throw `Could not find the ${params.el} element`
+        if(params.wrapperStyle && typeof params.wrapperStyle !== 'string')throw `The type accepted by the wrapperStyle parameter is string`
+        if(params.line && typeof params.line !== 'number')throw `The type accepted by the line parameter is number`
+        if(params.speed && typeof params.speed !== 'number')throw `The type accepted by the speed parameter is number`
+        if(params.colourful && typeof params.colourful !== 'boolean')throw `The type accepted by the colourful parameter is boolean`
+        if(params.runtime && typeof params.runtime !== 'number')throw `The type accepted by the runtime parameter is number`
+        if(params.loop && typeof params.loop !== 'boolean')throw `The type accepted by the loop parameter is boolean`
+        if(params.coefficient && typeof params.coefficient !== 'number')throw `The type accepted by the coefficient parameter is number`
+        if(params.hover && typeof params.hover !== 'boolean')throw `The type accepted by the hover parameter is boolean`
+        if(params.onComplete && typeof params.onComplete !== 'function')throw `The type accepted by the onComplete parameter is function`
+        if(params.onHover && typeof params.onHover !== 'function')throw `The type accepted by the onHover parameter is function`
+        return document.querySelector(params.el)
+    }
     /**
      * @description 获取元素样式 (内部使用)
      * @param {string} el 获取样式的节点 
