@@ -12,7 +12,7 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScirp
 
 |    属性           |       类型       |        值                            | 
 | ---               |       ---       |       ---                             |
-|  el               |     HTMLElement |  弹幕所挂载的父节点(弹幕将插入这个元素) |
+|  el               |      string     |  弹幕所挂载的父节点(弹幕将插入这个元素) |
 |  wrapperStyle     |      string     |  所有弹幕初始样式                      |
 |  line             |      number     |  弹幕行数(默认10行)                    |
 |  speed            |      number     |  弹幕速度(默认5)(s)                    |
