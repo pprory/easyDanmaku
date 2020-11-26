@@ -1,30 +1,16 @@
 /*!
- * eazyDanmuku v1.0.0
+ * eazyDanmuku v1.0.1
  * (c) 2020 Peng Pan
  * @license MIT
  */
 /**
  *  @class eazyDanmuku
- *  @param { object }params
- *  {
- *      //弹幕初始化属性
- *      el:DOM,                //父容器 | danmaku Parent container
- *      wrapperStyle:string,   //弹幕样式 | danmaku style
- *      line :number           //弹幕行数(默认10行) | danmaku lines(default ten line)
- *      speed:number           //弹幕速度(默认5) | danmaku speed(default five 5)
- *      colourful:boolean      //彩色弹幕(默认false) | colourful danmaku(default false) 
- *      runtime:number         //播放时长 | running time
- *      loop:boolean           //是否循环播放 |whether  loop play
- *      coefficient:number     //弹幕密度系数(默认1.38) | danmaku Density factor
- *      hover:boolean          //鼠标hover时是否暂停播放弹幕 | mouse hover pause the danmaku
- *      //弹幕事件
- *      onComplete:function    //批量弹幕播放完后 | When the danmaku ends
- *      onHover:function       //鼠标悬停
- *  }
+ *  @param { object } params
  *  @version 1.0.0
  */
 class eazyDanmaku {
     constructor(params) {
+        /* ------ 初始化属性 start--------   */
         this.container = this.checkParams(params);                       //弹幕容器 | danmaku Parent container
         this.wrapperStyle = params.wrapperStyle || null;                 //弹幕样式 | danmaku style
         this.line = params.line || 10;                                   //弹幕总行数 | danmaku lines(default ten line)
@@ -33,11 +19,12 @@ class eazyDanmaku {
         this.colourful = params.colourful || false;                      //彩色弹幕 | colourful danmaku(default false) 
         this.loop = params.loop || false;                                //是否循环播放 | loop play
         this.hover = params.hover || false;                              //鼠标悬停是否暂停 | hover pause
+        this.coefficient = params.coefficient|| 1.38;                    //同时刻弹幕系数  | danmaku Density factor
+        /* ------ 初始化属性 end --------   */
         this.originIndex = 0;                                            //弹幕列表起始下标 | danmaku Density factor
         this.originList = null;                                          //备用列表  | Alternate list
         this.offsetValue = this.container.offsetHeight / this.line;      //弹幕排列偏移量 | danmaku offsetValue
         this.vipIndex = 0;                                               //vip弹幕下标 | vip danmaku subscript
-        this.coefficient = params.coefficient|| 1.38;                    //同时刻弹幕系数  | danmaku Density factor
         this.overflowArr=[];                                             //溢出队列  | danmaku overflow Array
         this.clearIng = false;                                           //是否正在处理溢出弹幕 | whether  handle overflow danmaku
         this.init();
@@ -45,6 +32,7 @@ class eazyDanmaku {
     }
     /**
      * @description 事件注册
+     * @private
      * @param {object} params 事件
      */
     handleEvents (params){
@@ -53,6 +41,7 @@ class eazyDanmaku {
     }
     /**
      * @description eazyDanmaku初始化 设置弹幕容器基础样式，初始化弹幕赛道
+     * @private
      */
     init(){
         this.aisle = [];
@@ -70,7 +59,8 @@ class eazyDanmaku {
         }
     }
     /**
-     * 类型校验
+     * @description 初始化参数类型校验
+     * @private
      * @param {object} 初始化参数
      * @returns {HTMLElement} 弹幕容器 
      */
@@ -89,7 +79,8 @@ class eazyDanmaku {
         return document.querySelector(params.el)
     }
     /**
-     * @description 获取元素样式 (内部使用)
+     * @description 获取元素样式
+     * @private
      * @param {string} el 获取样式的节点 
      * @param {string} attr 获取的样式名
      */
@@ -97,10 +88,11 @@ class eazyDanmaku {
         return window.getComputedStyle(el,null)[attr];
     }
     /**
+     * @description 单条弹幕发送 批量弹幕使用batchSend方法
      * @param {string} content 弹幕内容
      * @param {string} normalClass 弹幕默认样式
      * @param {function} callback 弹幕播放结束后的回调函数 @returns {object} 本条弹幕的一些基本信息
-     * @description 单条弹幕发送 批量弹幕使用batchSend方法(对外)
+     * @public
      */
     send(content, normalClass=null,callback=null) {
         if(content.length<1)return
@@ -172,10 +164,11 @@ class eazyDanmaku {
         }
     }
     /**
-     * @description 批量发送弹幕 (对外)
+     * @description 批量发送弹幕
      * @param {Array} list
      * @param {Boolean} hasAvatar 是否包含头像
      * @param {string} normalClass 此批弹幕样式
+     * @public
      */
     batchSend(list,hasAvatar = false,normalClass=null) {
         this.runtime = list.length * 1.23;
@@ -200,11 +193,12 @@ class eazyDanmaku {
     }
 
     /**
-     * @description 居中发送弹幕 （对外）
+     * @description 居中发送弹幕
      * @param {string} content 
      * @param {string} normalClass
      * @param {number} duration
      * @param {function} callback
+     * @public
      */
     centeredSend(content, normalClass,duration = 3000,callback = null) {
         
@@ -246,11 +240,12 @@ class eazyDanmaku {
         
     }
     /**
-     * @description 事件委托（内部使用）
+     * @description 事件委托
      * @param {string}   parent 被事件委托对象
      * @param {string}   childClassName  事件委托的对象类名
      * @param {string}   EventName  所委托的事件名
      * @param {function} callBackFn 触发事件的回调(e:触发事件的元素)
+     * @private
      */
     eventDelegation(parent,childName,EventName,callBackFn){
         parent.addEventListener(EventName, (e) => {
@@ -262,6 +257,7 @@ class eazyDanmaku {
     }
     /**
      * @description 鼠标移入悬停
+     * @private
      */
     handleMouseHover() {
         const reg = /-(\S*),/;
@@ -284,7 +280,8 @@ class eazyDanmaku {
     }
 
     /**
-     * @description 内部方法 用于处理溢出弹幕
+     * @description 用于处理溢出弹幕
+     * @private
      */
     clearOverflowDanmakuArray() {
         this.clearIng = true;

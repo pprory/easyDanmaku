@@ -6,7 +6,7 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScirp
 ## 安装
 
 ```sh 
-$  npm install easyDanmaku --save
+$  npm install easydanmaku --save
 ```
 
 ## 初始设置
@@ -14,10 +14,10 @@ $  npm install easyDanmaku --save
 
 |    属性           |       类型       |        值                            | 
 | ---               |       ---       |       ---                             |
-|  el               |      string     |  弹幕所挂载的父节点(弹幕将插入这个元素) |
+|  el               |      string     |  弹幕所挂载的父节点(弹幕将插入这个节点) |
 |  wrapperStyle     |      string     |  所有弹幕初始样式                      |
 |  line             |      number     |  弹幕行数(默认10行)                    |
-|  speed            |      number     |  弹幕速度(默认5)(s)                    |
+|  speed            |      number     |  弹幕速度(默认5)                       |
 |  colourful        |      boolean    |  彩色弹幕(默认false)                   |
 |  runtime          |      number     |  循环弹幕播放时长(s)                   |
 |  loop             |      boolean    |  是否循环播放(默认false)               |
@@ -50,17 +50,17 @@ $  npm install easyDanmaku --save
         //~~~
         mounted() {
             const Danmaku = new EazyDanmaku({
-                el:'#container',//弹幕挂载节点
-                colourful:true, //彩色弹幕
-                line:10,        //弹幕行数
-                wrapperStyle:'danmaku-wrapper', //默认弹幕样式
-                speed:5,        //弹幕播放速度
-                runtime:3, //播放一次的时常
-                loop:true, //开启循环播放
-                hover:true,//鼠标移入悬停
-                onComplete:()=> { //播放结束
+                el:'#container',                        //弹幕挂载节点
+                colourful:true,                         //彩色弹幕
+                line:10,                                //弹幕行数
+                wrapperStyle:'danmaku-wrapper',         //默认弹幕样式
+                speed:5,                                //弹幕播放速度
+                runtime:3,                              //播放一次的时常
+                loop:true,                              //开启循环播放
+                hover:true,                             //鼠标移入悬停
+                onComplete:()=> {                       //播放结束
                     console.log('end');
-                }, //hover时 参数为该悬停元素
+                },                                      //hover时 参数为该悬停元素
                 onHover:(dom) => {
                     console.log(dom);
                 }
@@ -90,7 +90,7 @@ $  npm install easyDanmaku --save
 
 ```javascript
                 // 弹幕内容, 弹幕样式, 回调函数
-    Danmaku.send('123','danmaku-wrapper',(e)=>{
+    Danmaku.send('弹幕内容','danmaku-wrapper',(e)=>{
         alert('end!');
         console.log(e);
     })
@@ -125,7 +125,7 @@ $  npm install easyDanmaku --save
 
 ```
 
-*有疑问可通过``1041138537@qq.com``联系我*
+*有疑问可通过``1041138537@qq.com``联系作者*
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
