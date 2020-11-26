@@ -5,7 +5,9 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScirp
 
 ## 安装
 
-``npm install easyDanmaku --save``
+```sh 
+$  npm install easyDanmaku --save
+```
 
 ## 初始设置
 ### 弹幕初始化属性
