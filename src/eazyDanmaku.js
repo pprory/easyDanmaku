@@ -1,5 +1,5 @@
 /*!
- * eazyDanmuku v1.0.1
+ * eazyDanmuku v1.0.2
  * (c) 2020 Peng Pan
  * @license MIT
  */
