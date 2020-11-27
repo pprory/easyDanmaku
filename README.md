@@ -6,7 +6,7 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScrip
 ## 安装
 
 ```sh 
-$  npm install easydanmaku --save
+$  npm install easy-danmaku-js --save
 ```
 ### demo[预览地址](http://panchuanpeng.cn/easyDanmaku/loopPlay.html)
 
@@ -46,7 +46,7 @@ $  npm install easydanmaku --save
     <div id='container'></div>
 </template>
 <script>
-    import easyDanmaku from 'easydanmaku';
+    import easyDanmaku from 'easy-danmaku-js';
     export default {
         //~~~
         mounted() {
