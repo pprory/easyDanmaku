@@ -1,12 +1,7 @@
 /*!
- * eazyDanmuku v1.0.4
+ * eazyDanmuku v1.0.1
  * (c) 2020 Peng Pan
  * @license MIT
- */
-/**
- *  @class eazyDanmuku
- *  @param { object } params
- *  @version 1.0.4
  */
 class easyDanmaku {
     constructor(params) {
