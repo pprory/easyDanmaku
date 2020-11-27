@@ -1,9 +1,9 @@
 /*!
- * eazyDanmuku v1.0.1
+ * eazyDanmuku v1.0.2
  * (c) 2020 Peng Pan
  * @license MIT
  */
-class easyDanmaku {
+class EasyDanmaku {
     constructor(params) {
         /* ------ 初始化属性 start--------   */
         this.container = this.checkParams(params);                       //弹幕容器 | danmaku Parent container
@@ -166,7 +166,7 @@ class easyDanmaku {
      * @public
      */
     batchSend(list,hasAvatar = false,normalClass=null) {
-        this.runtime = list.length * 1.23;
+        let runtime = this.runtime || list.length * 1.23;
         this.originList = list;
         let timer = setInterval(()=>{
             if(this.originIndex>list.length-1){
@@ -184,7 +184,7 @@ class easyDanmaku {
                 }
                 this.originIndex++;
             }
-        },this.runtime / list.length * 1000)
+        },runtime / list.length * 1000)
     }
 
     /**
@@ -298,4 +298,4 @@ class easyDanmaku {
     }
 }
 
-export default easyDanmaku
+export default EasyDanmaku

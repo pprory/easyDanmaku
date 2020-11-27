@@ -1,6 +1,6 @@
 # easyDanmaku <a href="https://www.npmjs.com/package/easyDanmaku"><img src="https://img.shields.io/npm/l/vue.svg?sanitize=true" alt="License"></a>
 
-
+## 介绍
 A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScript``)
 
 ## 安装
@@ -8,29 +8,31 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScrip
 ```sh 
 $  npm install easy-danmaku-js --save
 ```
-### demo[预览地址](http://panchuanpeng.cn/easyDanmaku/loopPlay.html)
+### Demo[预览地址](http://panchuanpeng.cn/easyDanmaku/index.html)
+</br>
 
-## 初始设置
 ### 弹幕初始化属性
 
-|    属性           |       类型       |        值                            | 
-| ---               |       ---       |       ---                             |
-|  el               |      string     |  弹幕所挂载的父节点(弹幕将插入这个节点) |
-|  wrapperStyle     |      string     |  所有弹幕初始样式                      |
-|  line             |      number     |  弹幕行数(默认10行)                    |
-|  speed            |      number     |  弹幕速度(默认5)                       |
-|  colourful        |      boolean    |  彩色弹幕(默认false)                   |
-|  runtime          |      number     |  循环弹幕播放时长(s)                   |
-|  loop             |      boolean    |  是否循环播放(默认false)               |
-|  coefficient      |      number     |  弹幕密度系数(默认1.38)                |
-|  hover            |      boolean    |  鼠标hover时是否暂停播放弹幕(默认false) |
+|    属性           |       类型       |        说明                      |默认值|
+| ---               |       ---       |       ---                   |     --          |
+|  el               |      string     |  弹幕所挂载的父节点          |      -          |
+|  wrapperStyle     |      string     |  所有弹幕初始样式            |   default-style |
+|  line             |      number     |  弹幕行数                   |        10        |
+|  speed            |      number     |  弹幕速度                   |        5         |
+|  colourful        |      boolean    |  彩色弹幕                   |      false       |
+|  runtime          |      number     |  循环弹幕播放时长           |        10         |
+|  loop             |      boolean    |  是否循环播放               |       false       |
+|  coefficient      |      number     |  弹幕密度系数               |       1.38        |
+|  hover            |      boolean    |  鼠标hover时是否暂停播放弹幕 |       false       |
 
 ### 弹幕事件
 
-|    事件           |       参数                |        返回值     | 备注 |
+|    事件           |       回调参数                |        返回值     | 说明 |
 | ---               |       ---                |       ---         | --- |
 |   onComplete      |      void                 |     void          | 循环播放一轮或者批量弹幕插入完毕触发 |
 |   onHover         |     所hover的dom对象  |      void         | 鼠标hover在弹幕上时触发  |
+</br>
+
 ## 使用
 **ps** : *更多细节可查阅包文件夹中的demo*
 ### 在Vue中使用(React,Angular中使用方式类似)
@@ -67,7 +69,6 @@ $  npm install easy-danmaku-js --save
                 }
             })
             const data = ['danmaku1','danmaku2','danmaku3','danmaku4','danmaku5','danmaku6']
-            //下面案例代码粘贴在此处
             Danmaku.batchSend(data)
         }
         // ~~~
@@ -90,7 +91,7 @@ $  npm install easy-danmaku-js --save
 <p id="sendasingle">发送单条弹幕</p>
 
 ```javascript
-                // 弹幕内容, 弹幕样式, 回调函数
+    // 弹幕内容, 弹幕样式, 回调函数
     Danmaku.send('弹幕内容','danmaku-wrapper',(e)=>{
         alert('end!');
         console.log(e);
@@ -101,30 +102,37 @@ $  npm install easy-danmaku-js --save
 <p id="batchsend">多次批量发送弹幕</p>
 
 ```javascript
-    let set = new Set();
-    setInterval( () => {
-        for(let i = 0; i<10; i++) {
-            set.add(Math.round(Math.random()*1000))
+    const Danmaku2 = new EasyDanmaku({
+        el:'#container2',
+        colourful:true,
+        line:10,
+        wrapperStyle:'danmaku-wrapper',
+        speed:3,
+        hover:true,
+        onComplete:function(){
+            console.log('单次批量弹幕插入完毕');
+            send();
         }
-                         //弹幕内容      是否包含头像   弹幕样式 
-        Danmaku.batchSend(Array.from(set),false,'danmaku-wrapper');
-        set.clear();
-    },1000)
+    })
+    function send(){
+        const data = ['danmaku1','danmaku2','danmaku3','danmaku4','danmaku5','danmaku6']
+        Danmaku2.batchSend(data)
+    }
+    send();
 
 ```
 
 <p id="centeredsend">居中弹幕发送</p>
 
 ```javascript
-    setTimeout(() => {
-                           //弹幕内容  弹幕样式  持续时间(ms) 回调函数
-        Danmaku.centeredSend('弹幕内容','danmaku-wrapper',1000,(e)=>{
-            alert('end!');
-            console.log(e);
-        })
-    },2000)
+    //弹幕内容,  弹幕样式,  持续时间(ms), 回调函数
+    Danmaku.centeredSend('弹幕内容','danmaku-wrapper',1000,(e)=>{
+        alert('end!');
+        console.log(e);
+    })
 
 ```
+---
 
 *有疑问可通过``1041138537@qq.com``联系作者*
 ## License

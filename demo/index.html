@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>easyDanmaku.js demo</title>
+    <style >
+        header{
+            padding:30px 0;
+            text-align: center;
+        }
+        .main-container{
+            width:100%;
+            max-width:980px;
+            height:auto;
+            margin:0 auto;
+        }
+        .danmaku-container{
+            width:100%;
+            height:400px;
+        }
+        .danmaku-wrapper{
+            background: linear-gradient(to right,gray 60% , transparent);
+            border-top-left-radius: 50%;
+            border-bottom-left-radius: 50%;
+        }
+        .centered-wrapper{
+            width:100px;
+            height:30px;
+            background:black;
+            color:wheat;
+            text-align: center;
+            line-height: 30px;
+            padding:0 10px;
+        }
+
+        .danmaku-controller{
+            display: flex;
+            align-items: center;
+        }
+        .danmaku-controller>input{
+            width:80%;
+            height:30px;
+        }
+        .danmaku-controller>button{
+            width:20%;
+            height:35px;
+            margin-left:20px;
+        }
+        .current-style{
+            background: black;
+            color:white!important;
+            padding:0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h3>
+                EasyDanmaku.js 弹幕插件Demo
+            </h3>
+        </header>
+        <fieldset>
+            <legend>循环弹幕    |    居中弹幕</legend>
+            <div class="danmaku-container" id="container1"></div>
+        </fieldset>
+        <fieldset style="margin-top:30px;">
+            <legend>批量插入弹幕 | 单条插入弹幕</legend>
+            <div class="danmaku-controller">
+                <input id="content" placeholder="输入弹幕内容" value="今天天气真不错！" type="text">
+                <button id="send-btn">发送</button>
+            </div>
+            <div class="danmaku-container" id="container2"></div>
+        </fieldset>
+    </div>
+</body>
+
+<script type="module">
+import EasyDanmaku from './easyDanmaku.js'
+
+    /* ----- 循环播放 start ------  */
+    const Danmaku1 = new EasyDanmaku({
+        el:'#container1',
+        colourful:true,
+        line:10,
+        wrapperStyle:'danmaku-wrapper',
+        hover:true,
+        loop:true,
+        runtime:2,
+        onComplete:function(){
+            // console.log('循环播放一次');
+            Danmaku1.centeredSend('居中弹幕内容','centered-wrapper',3000,(e)=>{
+                console.log('居中弹幕播放完毕!',e);
+            })
+        },
+        onHover:function(dom){
+            console.log(dom);
+        }
+    })
+    const data = ['danmaku1','danmaku2','danmaku3','danmaku4','danmaku5','danmaku6']
+    Danmaku1.batchSend(data)
+    /* ----- 循环播放 end ------  */
+
+    /* ----- 批量插入弹幕 start ------  */
+    const Danmaku2 = new EasyDanmaku({
+        el:'#container2',
+        colourful:true,
+        line:10,
+        wrapperStyle:'danmaku-wrapper',
+        speed:3,
+        hover:true,
+        onComplete:function(){
+            console.log('单次弹幕插入完毕');
+            send();
+        }
+    })
+    function send(){
+        const data = ['danmaku1','danmaku2','danmaku3','danmaku4','danmaku5','danmaku6']
+        Danmaku2.batchSend(data)
+    }
+    send();
+    /* ----- 批量插入弹幕 end ------  */
+
+
+    /* ----- 单条弹幕插入 start ------  */
+    const sendBtn = document.querySelector('#send-btn');
+    const input = document.querySelector('#content');
+
+    sendBtn.onclick = () => {
+        Danmaku2.send(input.value,'current-style',function(){
+            console.log('发送成功');
+        })
+    }
+    /* ----- 单条弹幕插入 end ------  */
+</script>
+</html>

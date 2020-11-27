@@ -1,2 +1,2 @@
-import easyDanmaku from './easyDanmaku.js';
-export default easyDanmaku
+import EasyDanmaku from './easyDanmaku.js';
+export default EasyDanmaku
