@@ -1,4 +1,4 @@
-# eazyDanmaku <a href="https://www.npmjs.com/package/eazyDanmaku"><img src="https://img.shields.io/npm/l/vue.svg?sanitize=true" alt="License"></a>
+# easyDanmaku <a href="https://www.npmjs.com/package/easyDanmaku"><img src="https://img.shields.io/npm/l/vue.svg?sanitize=true" alt="License"></a>
 
 
 A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScript``)
@@ -8,7 +8,7 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScrip
 ```sh 
 $  npm install easydanmaku --save
 ```
-### demo[预览地址](http://panchuanpeng.cn/eazyDanmaku/loopPlay.html)
+### demo[预览地址](http://panchuanpeng.cn/easyDanmaku/loopPlay.html)
 
 ## 初始设置
 ### 弹幕初始化属性
@@ -46,11 +46,11 @@ $  npm install easydanmaku --save
     <div id='container'></div>
 </template>
 <script>
-    import EazyDanmaku from 'easydanmaku';
+    import easyDanmaku from 'easydanmaku';
     export default {
         //~~~
         mounted() {
-            const Danmaku = new EazyDanmaku({
+            const Danmaku = new easyDanmaku({
                 el:'#container',                        //弹幕挂载节点
                 colourful:true,                         //彩色弹幕
                 line:10,                                //弹幕行数

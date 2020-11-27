@@ -1,4 +1,4 @@
-/* interface EazyDanmakuOption{
+/* interface easyDanmakuOption{
     el:string              
     wrapperStyle?:string   
     line?:number           
@@ -13,7 +13,7 @@
     onHover?:(dom:HTMLElement)=>void
 } */
 
-declare class EazyDanmaku{
+declare class easyDanmaku{
     constructor(params: {
         el:string              //父容器 | danmaku Parent container
         wrapperStyle?:string    //弹幕样式 | danmaku style
@@ -47,5 +47,5 @@ declare class EazyDanmaku{
     private clearOverflowDanmakuArray(): void;
 }
 
-export default EazyDanmaku;
+export default easyDanmaku;
   

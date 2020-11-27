@@ -8,7 +8,7 @@
  *  @param { object } params
  *  @version 1.0.4
  */
-class eazyDanmaku {
+class easyDanmaku {
     constructor(params) {
         /* ------ 初始化属性 start--------   */
         this.container = this.checkParams(params);                       //弹幕容器 | danmaku Parent container
@@ -40,7 +40,7 @@ class eazyDanmaku {
         this.onHover = params.onHover || null;
     }
     /**
-     * @description eazyDanmaku初始化 设置弹幕容器基础样式，初始化弹幕赛道
+     * @description easyDanmaku初始化 设置弹幕容器基础样式，初始化弹幕赛道
      * @private
      */
     init(){
@@ -281,7 +281,7 @@ class eazyDanmaku {
 
     /**
      * @description 用于处理溢出弹幕
-     * @private
+     * @public
      */
     clearOverflowDanmakuArray() {
         this.clearIng = true;
@@ -303,4 +303,4 @@ class eazyDanmaku {
     }
 }
 
-export default eazyDanmaku
+export default easyDanmaku
