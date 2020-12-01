@@ -369,5 +369,3 @@ class Utils{
         })
     }
 }
-
-export default EasyDanmaku
