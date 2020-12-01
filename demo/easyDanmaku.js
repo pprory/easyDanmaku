@@ -234,6 +234,8 @@ class EasyDanmaku {
         }
         
     }
+
+
     /**
      * @description 事件委托
      * @param {string}   parent 被事件委托对象

@@ -20,9 +20,12 @@
             height:400px;
         }
         .danmaku-wrapper{
-            background: linear-gradient(to right,gray 60% , transparent);
+            /* background: linear-gradient(to right,gray 60% , transparent);
             border-top-left-radius: 50%;
-            border-bottom-left-radius: 50%;
+            border-bottom-left-radius: 50%; */
+            background: #eee;
+            height:30px;
+            line-height: 30px!important;
         }
         .centered-wrapper{
             width:100px;
@@ -47,10 +50,9 @@
             height:35px;
             margin-left:20px;
         }
-        .current-style{
+        .center-style{
             background: black;
             color:white!important;
-            padding:0 10px;
         }
     </style>
 </head>
@@ -61,22 +63,28 @@
                 EasyDanmaku.js 弹幕插件Demo
             </h3>
         </header>
-        <fieldset>
-            <legend>循环弹幕    |    居中弹幕</legend>
-            <div class="danmaku-container" id="container1"></div>
-        </fieldset>
         <fieldset style="margin-top:30px;">
             <legend>批量插入弹幕 | 单条插入弹幕</legend>
             <div class="danmaku-controller">
-                <input id="content" placeholder="输入弹幕内容" value="今天天气真不错！" type="text">
+                <input id="content" placeholder="输入单条弹幕内容" value="今天天气真不错！" type="text">
                 <button id="send-btn">发送</button>
+                <!-- <button data-state='1' id="control">暂停</button> -->
             </div>
             <div class="danmaku-container" id="container2"></div>
+        </fieldset>
+        <fieldset>
+            <legend>循环弹幕    |    居中弹幕</legend>
+            <div class="danmaku-controller">
+                <input id="content0" placeholder="输入居中弹幕内容" value="这是一条居中弹幕" type="text">
+                <button id="send-btn0">发送</button>
+            </div>
+            <div class="danmaku-container" id="container1"></div>
         </fieldset>
     </div>
 </body>
 
 <script type="module">
+"use strict"
 import EasyDanmaku from './easyDanmaku.js'
 
     /* ----- 循环播放 start ------  */
@@ -89,10 +97,6 @@ import EasyDanmaku from './easyDanmaku.js'
         loop:true,
         runtime:2,
         onComplete:function(){
-            // console.log('循环播放一次');
-            Danmaku1.centeredSend('居中弹幕内容','centered-wrapper',3000,(e)=>{
-                console.log('居中弹幕播放完毕!',e);
-            })
         },
         onHover:function(dom){
             console.log(dom);
@@ -101,6 +105,21 @@ import EasyDanmaku from './easyDanmaku.js'
     const data = ['danmaku1','danmaku2','danmaku3','danmaku4','danmaku5','danmaku6']
     Danmaku1.batchSend(data)
     /* ----- 循环播放 end ------  */
+
+    /* ----- 单条弹幕插入 start ------  */
+    const sendBtn0 = document.querySelector('#send-btn0');
+    const input0 = document.querySelector('#content0');
+
+    sendBtn0.onclick = () => {
+        Danmaku1.centeredSend(input0.value,'center-style',2000,function(){
+            console.log('发送成功');
+        })
+    }
+    /* ----- 单条弹幕插入 end ------  */
+
+
+    // ---------------------------------------------------------------------------- //
+
 
     /* ----- 批量插入弹幕 start ------  */
     const Danmaku2 = new EasyDanmaku({
@@ -124,14 +143,38 @@ import EasyDanmaku from './easyDanmaku.js'
 
 
     /* ----- 单条弹幕插入 start ------  */
+
     const sendBtn = document.querySelector('#send-btn');
     const input = document.querySelector('#content');
 
     sendBtn.onclick = () => {
-        Danmaku2.send(input.value,'current-style',function(){
+        Danmaku2.send(input.value,'danmaku-wrapper',function(){
             console.log('发送成功');
         })
     }
     /* ----- 单条弹幕插入 end ------  */
+
+
+    /* ------- 全局暂停 start ---------*/
+    
+    /* const state = {
+        pause:0,//暂停
+        play:1, //播放
+    }
+    const controlBtn = document.querySelector('#control');
+
+    controlBtn.onclick = function(){
+        if(this.dataset.state == state.play){
+            this.dataset.state = state.pause
+            this.innerHTML = '播放'
+        }else{
+            this.dataset.state = state.play
+            this.innerHTML = '暂停'
+        }
+    } */
+
+
+    /* ------- 全局暂停 end ---------*/
+        
 </script>
 </html>
