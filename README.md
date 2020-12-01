@@ -7,7 +7,10 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件
 ## 安装
 1. LINK
 ```html
+<!-- 未压缩 -->
 <script src="https://pprory.github.io/easyDanmaku/demo/easy-Danmaku.js"></script>
+<!-- 压缩后编译成es5版本 -->
+<script src="https://pprory.github.io/easyDanmaku/demo/easy-Danmaku.min.js"></script>
 ```
 2. NPM
 ```sh 
