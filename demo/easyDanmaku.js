@@ -285,6 +285,7 @@ class EasyDanmaku {
             }, this.speed * 1000);
         }else if(status === extensiveStatus.pause){
             // 暂停
+            clearTimeout(target.timer)
             const translateX = Utils.getStyle(target,'transform').match(RegExpforTranslateX)[1];
             target.style['transition'] = 'transform 0s linear';
             target.style['transform'] = `translateX(-${translateX}px)`;
@@ -306,8 +307,7 @@ class EasyDanmaku {
         })
         Utils.eventDelegation(this.container,'default-style','mouseout',(activeDom)=>{
             activeDom.style.zIndex=1
-            this.controlDanmakurunStatus(activeDom,1); //播放
-            
+            if(this.runstatus==1)this.controlDanmakurunStatus(activeDom,1); //播放
         })
     }
 
