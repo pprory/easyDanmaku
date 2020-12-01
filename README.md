@@ -7,13 +7,13 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件
 ## 安装
 1. LINK
 ```html
-<script src="http://panchuanpeng.cn/easyDanmaku/easyDanmaku.js"></script>
+<script src="https://pprory.github.io/easyDanmaku/demo/easy-Danmaku.js"></script>
 ```
 2. NPM
 ```sh 
 $  npm install easy-danmaku-js --save
 ```
-### Demo[预览地址](http://panchuanpeng.cn/easyDanmaku/index.html)
+### Demo[预览地址](https://pprory.github.io/easyDanmaku/demo/index.html)
 </br>
 
 ### 弹幕初始化属性
