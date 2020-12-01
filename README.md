@@ -1,8 +1,9 @@
 # easyDanmaku <a href="https://www.npmjs.com/package/easyDanmaku"><img src="https://img.shields.io/npm/l/vue.svg?sanitize=true" alt="License"></a>
 
 ## 介绍
-A Danmaku plugin for the web,一个用于web端的弹幕插件(支持``TypeScript``)
-
+A Danmaku plugin for the web,一个用于web端的弹幕插件
+## 特点
+支持``TypeScript``、使用简单、使用css3过渡动画实现，弹幕流畅不卡顿、核心代码压缩后仅7kb。
 ## 安装
 
 ```sh 
