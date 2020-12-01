@@ -168,19 +168,21 @@ class EasyDanmaku {
     batchSend(list,hasAvatar = false,normalClass=null) {
         let runtime = this.runtime || list.length * 1.23;
         this.originList = list;
+        this.hasAvatar = hasAvatar;
+        this.normalClass = normalClass;
         let timer = setInterval(()=>{
             if(this.originIndex>list.length-1){
                 clearInterval(timer);
                 this.originIndex = 0;
                 if(this.onComplete) this.onComplete();
-                if(this.loop) this.batchSend(this.originList);
+                if(this.loop) this.batchSend(this.originList,hasAvatar,normalClass);
             }else{
                 if(hasAvatar){
                     this.send(`<img src=${list[this.originIndex].avatar}>
                         <p>${list[this.originIndex].content}</p>
                     `,normalClass || this.wrapperStyle);
                 }else{
-                    this.send(list[this.originIndex],normalClass||this.wrapperStyle);
+                    this.send(list[this.originIndex],normalClass || this.wrapperStyle);
                 }
                 this.originIndex++;
             }
@@ -327,7 +329,7 @@ class EasyDanmaku {
                     this.clearIng = false;
                 }
             }else{
-                this.send(this.overflowArr[0].content,this.wrapperStyle);
+                this.send(this.overflowArr[0].content,this.normalClass||this.wrapperStyle);
                 this.overflowArr.shift();
             }
         },500)
@@ -344,6 +346,7 @@ class Utils{
     * @public
     * @param {string} el 获取样式的节点 
     * @param {string} attr 获取的样式名
+    * @returns {string} 元素样式
     */
     static getStyle(el,attr){
         return window.getComputedStyle(el,null)[attr];
