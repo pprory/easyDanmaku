@@ -5,7 +5,11 @@ A Danmaku plugin for the web,一个用于web端的弹幕插件
 ## 特点
 支持``TypeScript``、使用简单、使用css3过渡动画实现，弹幕流畅不卡顿、核心代码压缩后仅7kb。
 ## 安装
-
+1. LINK
+```html
+<script src="http://panchuanpeng.cn/easyDanmaku/easyDanmaku.js"></script>
+```
+2. NPM
 ```sh 
 $  npm install easy-danmaku-js --save
 ```
