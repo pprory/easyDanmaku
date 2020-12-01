@@ -34,18 +34,25 @@ declare class easyDanmaku{
     
     public centeredSend<T>(content: T, normalClass?: string, duration?: number, callback?: Function): void;
     
+    public play(): void;
+    
+    public pause(): void;
+
     private handleEvents(params:Function): void;
 
     private init(): void;
-
-    private getStyle(el: HTMLElement,attr: string): void;
-
-    private eventDelegation(parent: HTMLElement,childName: string, EventName: string,callBackFn: Function): void;
     
     private handleMouseHover(): void;
 
+    private controlDanmakurunStatus(target:HTMLElement,status:number): void;
+
     private clearOverflowDanmakuArray(): void;
 }
+/* declare class  Utils {
+    private getStyle(el: HTMLElement,attr: string): string;
+
+    private eventDelegation(parent: HTMLElement,childName: string, EventName: string,callBackFn: Function): void;
+} */
 
 export default easyDanmaku;
   

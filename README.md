@@ -31,9 +31,19 @@ $  npm install easy-danmaku-js --save
 | ---               |       ---                |       ---         | --- |
 |   onComplete      |      void                 |     void          | 循环播放一轮或者批量弹幕插入完毕触发 |
 |   onHover         |     所hover的dom对象  |      void         | 鼠标hover在弹幕上时触发  |
+
+### 弹幕方法
+| 方法名  | 说明         |      参数                  | 例子 |
+| --     |  --          |              --              | -- |
+|  send  |  发送单条弹幕(弹幕内容可用HTML标签包裹使用data-**标识特定数据) |    弹幕内容,弹幕样式,回调函数        |  send('内容','container-style',function(e){})  |
+|  centeredSend  |  发送居中弹幕 |   弹幕内容, 弹幕样式, 持续时间(ms), 回调函数     |centeredSend('内容','container-style',3000,function(e){})|
+|  batchSend  |  发送批量弹幕(不包含头像)  | 弹幕内容数组例,是否包含头像,默认样式   | batchSend(['内容一','内容二'],false,'container-style')   |
+|  batchSend  |  发送批量弹幕(包含头像)  | 弹幕内容数组例,是否包含头像,默认样式   | batchSend([{avatar:url,content:'弹幕内容'}],true,'container-style')   |
+|  play  |   播放屏幕中所有弹幕     |-|-|
+|  pause  |  暂停屏幕中所有弹幕     |-|-|
 </br>
 
-## 使用
+## 例子
 **ps** : *更多细节可查阅包文件夹中的demo*
 ### 在Vue中使用(React,Angular中使用方式类似)
 - [循环播放](#loop)
@@ -125,7 +135,6 @@ $  npm install easy-danmaku-js --save
 <p id="centeredsend">居中弹幕发送</p>
 
 ```javascript
-    //弹幕内容,  弹幕样式,  持续时间(ms), 回调函数
     Danmaku.centeredSend('弹幕内容','danmaku-wrapper',1000,(e)=>{
         alert('end!');
         console.log(e);

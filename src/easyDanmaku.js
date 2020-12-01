@@ -1,5 +1,5 @@
 /*!
- * eazyDanmuku v1.0.2
+ * eazyDanmuku v1.0.3
  * (c) 2020 Peng Pan
  * @license MIT
  */
@@ -15,13 +15,14 @@ class EasyDanmaku {
         this.loop = params.loop || false;                                //是否循环播放 | loop play
         this.hover = params.hover || false;                              //鼠标悬停是否暂停 | hover pause
         this.coefficient = params.coefficient|| 1.38;                    //同时刻弹幕系数  | danmaku Density factor
-        /* ------ 初始化属性 end --------   */
+        /* ------ 内部属性 start --------   */
         this.originIndex = 0;                                            //弹幕列表起始下标 | danmaku Density factor
         this.originList = null;                                          //备用列表  | Alternate list
         this.offsetValue = this.container.offsetHeight / this.line;      //弹幕排列偏移量 | danmaku offsetValue
         this.vipIndex = 0;                                               //vip弹幕下标 | vip danmaku subscript
         this.overflowArr=[];                                             //溢出队列  | danmaku overflow Array
         this.clearIng = false;                                           //是否正在处理溢出弹幕 | whether  handle overflow danmaku
+        this.cleartimer = null;                                          //定时器(处理溢出弹幕) | 
         this.init();
         this.handleEvents(params);                                       //事件注册 | handle Event
     }
@@ -39,11 +40,11 @@ class EasyDanmaku {
      * @private
      */
     init(){
+        this.runstatus = 1 // 0 | 1
         this.aisle = [];
         this.container.style.overflow = 'hidden';
-        
         if(this.hover)this.handleMouseHover();
-        if(this.getStyle(this.container,'position') !== 'relative' && this.getStyle(this.container,'position') !== 'fixed' ){
+        if(Utils.getStyle(this.container,'position') !== 'relative' && Utils.getStyle(this.container,'position') !== 'fixed' ){
             this.container.style.position = 'relative';
         }
         for (let i = 0; i < this.line; i++) {
@@ -73,15 +74,7 @@ class EasyDanmaku {
         if(params.onHover && typeof params.onHover !== 'function')throw `The type accepted by the onHover parameter is function`
         return document.querySelector(params.el)
     }
-    /**
-     * @description 获取元素样式
-     * @private
-     * @param {string} el 获取样式的节点 
-     * @param {string} attr 获取的样式名
-     */
-    getStyle(el,attr){
-        return window.getComputedStyle(el,null)[attr];
-    }
+    
     /**
      * @description 单条弹幕发送 批量弹幕使用batchSend方法
      * @param {string} content 弹幕内容
@@ -90,6 +83,13 @@ class EasyDanmaku {
      * @public
      */
     send(content, normalClass=null,callback=null) {
+        if(this.runstatus == 0){
+            this.overflowArr.push({
+                content,
+                normalClass
+            });
+            return
+        }
         if(content.length<1)return
         let sheet = document.createElement('div');
         let index = 0;
@@ -234,43 +234,78 @@ class EasyDanmaku {
         }
         
     }
+
     /**
-     * @description 事件委托
-     * @param {string}   parent 被事件委托对象
-     * @param {string}   childClassName  事件委托的对象类名
-     * @param {string}   EventName  所委托的事件名
-     * @param {function} callBackFn 触发事件的回调(e:触发事件的元素)
-     * @private
+     * @description 播放
+     * @public
      */
-    eventDelegation(parent,childName,EventName,callBackFn){
-        parent.addEventListener(EventName, (e) => {
-            const containerDom = e.target;
-            if(containerDom.className.includes(childName)){
-                callBackFn(containerDom)
-            }
-        })
+    play() {
+        const allDanmaku = this.container.children;
+        for(let i=0; i<allDanmaku.length; i++){
+            this.controlDanmakurunStatus(allDanmaku[i],1);
+        }
+        this.runstatus = 1;
+        if(this.overflowArr.length!==0)this.clearOverflowDanmakuArray();
     }
+
+    /**
+     * @description 暂停
+     * @public
+     */
+    pause(){
+        const allDanmaku = this.container.children;
+        for(let i=0; i<allDanmaku.length; i++){
+            this.controlDanmakurunStatus(allDanmaku[i],0);
+        }
+        this.runstatus = 0;
+    }
+
+    /**
+     * @description 控制弹幕运动状态 暂停|播放
+     * @param {HTMLElement} 目标dom
+     * @param {number} 1(播放) | 0(暂停)
+     * 
+     */
+    controlDanmakurunStatus(target,status) {
+        const extensiveStatus = {
+            play:1,
+            pause:0
+        }
+        const RegExpforTranslateX = /-(\S*),/;
+        if(status === extensiveStatus.play){
+            // 播放
+            clearTimeout(target.timer)
+            const translateX = Utils.getStyle(target,'transform').match(RegExpforTranslateX)[1];
+            target.style['transition'] = `transform ${this.speed}s linear`;
+            target.style['transform'] = `translateX(-${target.parentNode.offsetWidth + parseInt(translateX) + target.offsetWidth + 130}px)`;
+            target.timer = setTimeout(() => {
+                target.remove();
+            }, this.speed * 1000);
+        }else if(status === extensiveStatus.pause){
+            // 暂停
+            const translateX = Utils.getStyle(target,'transform').match(RegExpforTranslateX)[1];
+            target.style['transition'] = 'transform 0s linear';
+            target.style['transform'] = `translateX(-${translateX}px)`;
+            target.setAttribute('relieveDel',1);
+
+        }
+    }
+
+    
     /**
      * @description 鼠标移入悬停
      * @private
      */
     handleMouseHover() {
-        const reg = /-(\S*),/;
-        this.eventDelegation(this.container,'default-style','mouseover',(activeDom)=>{
-            const translateX = this.getStyle(activeDom,'transform').match(reg)[1];
-            activeDom.style['transition'] = 'transform 0s linear';
-            activeDom.style['transform'] = `translateX(-${translateX}px)`;
-            activeDom.setAttribute('relieveDel',1);
-            if(this.onHover)this.onHover(activeDom)
+        Utils.eventDelegation(this.container,'default-style','mouseover',(activeDom)=>{
+            activeDom.style['z-index']=1000;
+            this.controlDanmakurunStatus(activeDom,0); //暂停
+            if(this.onHover)this.onHover(activeDom);
         })
-        this.eventDelegation(this.container,'default-style','mouseout',(activeDom)=>{
-            clearTimeout(activeDom.timer)
-            const translateX = this.getStyle(activeDom,'transform').match(reg)[1];
-            activeDom.style['transition'] = `transform ${this.speed}s linear`;
-            activeDom.style['transform'] = `translateX(-${activeDom.parentNode.offsetWidth + parseInt(translateX) + activeDom.offsetWidth + 130}px)`;
-            activeDom.timer = setTimeout(() => {
-                activeDom.remove();
-            }, this.speed * 1000);
+        Utils.eventDelegation(this.container,'default-style','mouseout',(activeDom)=>{
+            activeDom.style.zIndex=1
+            this.controlDanmakurunStatus(activeDom,1); //播放
+            
         })
     }
 
@@ -279,15 +314,16 @@ class EasyDanmaku {
      * @public
      */
     clearOverflowDanmakuArray() {
+        clearInterval(this.cleartimer);
         this.clearIng = true;
         let timerLimit = 0;
-        const timer = setInterval(()=>{
+        this.cleartimer = setInterval(()=>{
             if(this.overflowArr.length === 0){
                 timerLimit ++;
                 
                 if(timerLimit > 20){
                     // 无新入溢出弹幕关闭清理
-                    clearInterval(timer);
+                    clearInterval(this.cleartimer);
                     this.clearIng = false;
                 }
             }else{
@@ -295,6 +331,39 @@ class EasyDanmaku {
                 this.overflowArr.shift();
             }
         },500)
+    }
+}
+
+/**
+ * @class 工具类
+ */
+class Utils{
+    
+    /**
+    * @description 获取元素样式
+    * @public
+    * @param {string} el 获取样式的节点 
+    * @param {string} attr 获取的样式名
+    */
+    static getStyle(el,attr){
+        return window.getComputedStyle(el,null)[attr];
+    }
+
+    /**
+     * @description 事件委托
+     * @param {string}   parent 被事件委托对象
+     * @param {string}   childClassName  事件委托的对象类名
+     * @param {string}   EventName  所委托的事件名
+     * @param {function} callBackFn 触发事件的回调(e:触发事件的元素)
+     * @private
+     */
+    static eventDelegation(parent,childName,EventName,callBackFn){
+        parent.addEventListener(EventName, (e) => {
+            const containerDom = e.target;
+            if(containerDom.className.includes(childName)){
+                callBackFn(containerDom)
+            }
+        })
     }
 }
 
