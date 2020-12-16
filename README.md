@@ -151,7 +151,6 @@ $  npm install easy-danmaku-js --save
 ```
 ---
 
-*有疑问可通过``1041138537@qq.com``联系作者*
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
