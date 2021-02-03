@@ -1,4 +1,5 @@
-# easyDanmaku <a href="https://www.npmjs.com/package/easyDanmaku"><img src="https://img.shields.io/npm/l/vue.svg?sanitize=true" alt="License"></a>
+# easyDanmaku <a href="https://www.npmjs.com/package/easyDanmaku"><img src="https://img.shields.io/npm/l/easy-danmaku-js" alt="License"></a>
+<img src="https://img.shields.io/npm/types/easy-danmaku-js"></a>
 
 ## 介绍
 A Danmaku plugin for the web,一个用于web端的弹幕插件
