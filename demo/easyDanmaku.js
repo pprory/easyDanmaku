@@ -1,5 +1,5 @@
 /*!
- * eazyDanmuku v1.0.4
+ * eazyDanmuku v1.0.7
  * (c) 2020 Peng Pan
  * @license MIT
  */
@@ -329,7 +329,7 @@ class EasyDanmaku {
                     this.clearIng = false;
                 }
             }else{
-                this.send(this.overflowArr[0].content,this.normalClass||this.wrapperStyle);
+                this.send(this.overflowArr[0].content, this.overflowArr[0].normalClass || this.wrapperStyle);
                 this.overflowArr.shift();
             }
         },500)
